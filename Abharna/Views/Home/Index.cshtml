@@ -1,0 +1,267 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+@section Head {
+    <!-- Internal CSS -->
+    <style>
+        #hero h1 {
+            font-size: 54px;
+            text-shadow: 2px 2px 4px #d9d2c2;
+        }
+
+        #hero h1 em {
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        #hero h1 span {
+            color: #2b3550;
+        }
+
+        #benefits {
+            background-color: #fbfaf6;
+        }
+
+        .addbox {
+            border: 3px double #a98550;
+            padding: 18px;
+            background-color: #fbfaf6;
+        }
+
+        .teamtable td.name {
+            color: #0f1b33;
+        }
+
+        .sitemap {
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .sitemap li {
+            margin-bottom: 6px;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        figure img {
+            width: 100%;
+            border: 1px solid #0f1b33;
+            box-shadow: 6px 6px 0 #d9d2c2;
+        }
+
+        figcaption {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+    </style>
+}
+
+
+        <section id="hero" class="wrap">
+            <div class="col-text">
+                <span class="section-label">JEDDAH ISLAMIC PORT - INTEGRATED OPERATIONS</span>
+                <h1><em>We have set sail.</em><br><span>ABHARNA Port Systems.</span></h1>
+                <p class="lead">An integrated electronic gateway for managing and tracking maritime operations at Jeddah
+                    Islamic Port &mdash; real-time visibility from sea to shore.</p>
+
+                <p style="color: #0f1b33; font-weight: bold;">Where is my container? Find out in three clicks.</p>
+                <p>
+                    <a class="btn dark" asp-controller="Track" asp-action="Index">Track Cargo &rarr;</a>
+                    &nbsp;
+                    <a class="btn" asp-controller="Account" asp-action="Login">Sign In</a>
+                    &nbsp;
+                    <a href="#problem" style="border-bottom: 1px solid #a98550; font-size: 12px;">Read the brief</a>
+                </p>
+            </div>
+
+            <div class="col-pic">
+                <div class="picbox">
+                    <div class="picwin">
+                        <img id="mainpic" src="~/images/hero.jpg" alt="Containers at Jeddah Islamic Port"
+                             onmouseover="changePicture(1)" onmouseout="changePicture(0)">
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
+
+        <!--Content-->
+        <div class="wrap">
+
+            <!--intrnal linking-->
+            <p class="toc">
+                <strong>On this page:</strong>
+                <a href="#problem">The problem</a> |
+                <a href="#solution">Our solution</a> |
+                <a href="#benefits">Benefits</a> |
+                <a href="#actors">Who uses ABHARNA</a> |
+                <a href="#checklist">Shipment checklist</a>
+            </p>
+
+            <!-- the problem-->
+            <article id="problem" class="band">
+                <span class="section-label">THE PROBLEM</span>
+                <h2>The problem we want to solve</h2>
+                <p>In many ports, information about ships and containers is spread over phone calls, paper forms and
+                    separate systems. Everyone who works with a container needs the same answer &mdash; <em>where is it
+                        and what is its status?</em> &mdash; but each person has to ask somebody else.</p>
+                <ul class="checks">
+                    <li>Customers cannot see where their cargo is, so they call the port again and again.</li>
+                    <li>Customs brokers learn about holds late, which delays the clearance.</li>
+                    <li>Managers have no single view of ships, containers and customs holds.</li>
+                </ul>
+            </article>
+
+            <!--the solution -->
+            <article id="solution" class="band">
+                <span class="section-label">THE SOLUTION</span>
+                <h2>ABHARNA: one gateway for the whole port</h2>
+                <p>ABHARNA is the digital chart that brings the operations of the port into a single, transparent view. It works in four simple steps:</p>
+                <ol class="steps">
+                    <li>Port staff <strong>register</strong> the ships and containers.</li>
+                    <li>Every movement updates the container <strong>status</strong> (registered, in transit, at port,
+                        customs hold, cleared, released).</li>
+                    <li>Customers <a asp-controller="Track" asp-action="Index"><strong>track</strong></a> their cargo with only the container number.</li>
+                    <li>Customs brokers and managers see holds and clearance in the same place.</li>
+                </ol>
+            </article>
+
+            <!-- the benefits-->
+            <section id="benefits" class="band">
+                <span class="section-label">THE BENEFIT</span>
+                <h2>Why it helps</h2>
+                <div class="card">
+                    <p class="num">01</p>
+                    <h3>Real-time tracking</h3>
+                    <p>Status, yard location and estimated arrival for every container.</p>
+                </div>
+                <div class="card">
+                    <p class="num">02</p>
+                    <h3>Fewer phone calls</h3>
+                    <p>Customers find the answer themselves, day or night.</p>
+                </div>
+                <div class="card">
+                    <p class="num">03</p>
+                    <h3>Faster clearance</h3>
+                    <p>Brokers see customs holds instantly and act on them.</p>
+                </div>
+                <div class="card">
+                    <p class="num">04</p>
+                    <h3>One place</h3>
+                    <p>Staff, managers, customers and brokers share the same data.</p>
+                </div>
+                <div class="clear"></div>
+            </section>
+
+            <!--table of actors -->
+            <section id="actors" class="band">
+                <span class="section-label">USERS</span>
+                <h2>Five actors, one gateway</h2>
+                <table class="tbl">
+                    <caption>Who uses ABHARNA and what they get</caption>
+                    <thead>
+                        <tr>
+                            <th colspan="3">User roles</th>
+                        </tr>
+                        <tr>
+                            <th>Actor</th>
+                            <th>What they do</th>
+                            <th>Benefit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="name">Port Staff</td>
+                            <td>Register ships, berths and containers.</td>
+                            <td>Less paperwork</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Port Manager</td>
+                            <td>Monitor vessels and container distribution.</td>
+                            <td>One clear overview</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Customer / Consignee</td>
+                            <td>Track cargo and read notifications.</td>
+                            <td>Know where the cargo is</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Customs Broker</td>
+                            <td>Manage the clearance queue.</td>
+                            <td>Faster clearance</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Shipping Rep</td>
+                            <td>Follow vessels and their cargo.</td>
+                            <td>Better planning</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">All five roles can sign in from the login page.</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+
+            <!--add/clear shipments-->
+            <section id="checklist" class="band">
+                <span class="section-label">TRY IT</span>
+                <h2>Plan your shipment checklist</h2>
+                <p>Write what you need before the cargo arrives (for example: <em>customs papers</em>) and add it to the list.</p>
+                <div class="addbox">
+                    <label for="newItem" class="fl">NEW ITEM</label>
+                    <input type="text" id="newItem" class="field" placeholder="Write an item" onfocus="highlight(this)" onblur="normal(this)">
+                    <button type="button" class="btn dark" onclick="addItem()">Add to list</button>
+                    <button type="button" class="btn" onclick="clearList()">Clear list</button>
+                    <p id="listMsg" class="msg">The list is empty.</p>
+                    <ul id="checklistItems"></ul>
+                </div>
+            </section>
+        </div>
+
+
+
+@section Scripts {
+    <!-- Embedded JavaScript -->
+    <script>
+        var itemCount = 0;
+
+        //adds a new <li> element
+        function addItem() {
+            var text = document.getElementById("newItem").value;
+            if (text == "") {
+                document.getElementById("listMsg").innerHTML = "Please write an item first.";
+                document.getElementById("listMsg").style.color = "#c4552f";
+            } else {
+                document.getElementById("checklistItems").innerHTML += "<li>" + clean(text) + "</li>";
+                itemCount++;
+                document.getElementById("listMsg").innerHTML = "Items in the list: " + itemCount;
+                document.getElementById("listMsg").style.color = "#2f7d52";
+                document.getElementById("newItem").value = "";
+            }
+        }
+
+        // onclick on "Clear list"- removes all the <li> elements
+        function clearList() {
+            document.getElementById("checklistItems").innerHTML = "";
+            itemCount = 0;
+            document.getElementById("listMsg").innerHTML = "The list is empty.";
+            document.getElementById("listMsg").style.color = "#4b5563";
+        }
+        // the picture paths for ASP.NET (images are in wwwroot/images)
+        function changePicture(state) {
+            var pic = document.getElementById("mainpic");
+            if (state == 1) {
+                pic.src = "/images/port2.jpg";
+            } else {
+                pic.src = "/images/hero.jpg";
+            }
+        }
+    </script>
+}

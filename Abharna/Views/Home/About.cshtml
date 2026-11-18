@@ -1,0 +1,78 @@
+@{
+    ViewData["Title"] = "About Us";
+}
+
+        <main class="wrap" style="padding-top: 30px;">
+
+            <span class="section-label">HERITAGE MEETS DATA</span>
+            <h1>About Us</h1>
+
+            <p class="toc">
+                <strong>On this page:</strong>
+                <a href="#project">The project</a> |
+                <a href="#team">Our team</a> |
+                <a href="#sitemap">Site map</a> 
+            </p>
+
+            <article id="project" class="band" style="border-top: none;">
+                <div class="col-text" style="padding-top: 0;">
+                    <h2>Built for the gateway of the Red Sea</h2>
+                    <p>Jeddah Islamic Port has been the kingdom's maritime artery for centuries.
+                        <strong>ABHARNA</strong> is the digital chart that brings its operations into a single, transparent, real-time view.
+                    </p>
+                    
+                </div>
+
+                <div class="col-pic" style="padding-top: 0;">
+                    <figure>
+                        <img src="~/images/port.jpg" alt="Cranes and containers at the port">
+                        <figcaption>Cranes and containers at Jeddah Islamic Port.</figcaption>
+                    </figure>
+                </div>
+                <div class="clear"></div>
+            </article>
+
+            <section id="team" class="band">
+                <span class="section-label">OUR TEAM</span>
+                <h2>Our team &mdash; Group No. 3</h2>
+                <table class="tbl teamtable">
+                    <caption>Team members</caption>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role in the group</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="name">Yara Alharbi</td>
+                            <td>Team member</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Dhay Alghamdi</td>
+                            <td>Team member</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="sitemap" class="band">
+                <span class="section-label">NAVIGATION</span>
+                <h2>Site map</h2>
+                <ul class="sitemap">
+                    <li><a asp-controller="Home" asp-action="Index">Home</a>
+                        <ul>
+                            <li><a asp-controller="Home" asp-action="Index" asp-fragment="problem">The problem</a></li>
+                            <li><a asp-controller="Home" asp-action="Index" asp-fragment="solution">Our solution</a></li>
+                            <li><a asp-controller="Home" asp-action="Index" asp-fragment="benefits">Benefits</a></li>
+                            <li><a asp-controller="Home" asp-action="Index" asp-fragment="actors">Who uses ABHARNA</a></li>
+                            <li><a asp-controller="Home" asp-action="Index" asp-fragment="checklist">Shipment checklist</a></li>
+                        </ul>
+                    </li>
+                    <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                    <li><a asp-controller="Track" asp-action="Index">Track Cargo</a></li>
+                    <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                    <li><a asp-controller="Account" asp-action="Signup">Sign Up</a></li>
+                </ul>
+            </section>
+        </main>

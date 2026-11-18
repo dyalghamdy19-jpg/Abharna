@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Track Cargo";
+}
+
+<main class="wrap" style="padding-top: 30px;">
+    <span class="section-label">ABHARNA &middot; TRACKING</span>
+    <h1>Real-time cargo tracking</h1>
+    <p class="lead">Enter your container number to see status, location and estimated arrival.</p>
+
+    <div class="formbox big">
+        <form name="trackForm" method="post" onsubmit="return trackContainer()"
+              onreset="resetTrack()">
+            <label for="container" class="fl">CONTAINER NUMBER</label>
+            <input type="search" id="container" name="container" class="field" placeholder="e.g. ABHU1234567" autofocus onfocus="highlight(this)" onblur="normal(this)">
+            <input type="submit" class="btn dark" value="Track">
+            <input type="reset" class="btn" value="Clear">
+        </form>
+    </div>
+
+    <!--js -->
+    <div id="trackResult"></div>
+
+    <div class="divider"></div>
+
+    <h3>Sample container numbers</h3>
+    <p class="small">Double-click a number to write it in the search box.</p>
+    <table class="tbl">
+        <caption>Containers you can search for</caption>
+        <thead>
+            <tr>
+                <th>Container number</th>
+                <th>Cargo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="name" ondblclick="fillSample('ABHU7771234')">ABHU7771234</td>
+                <td>Industrial Machinery</td>
+            </tr>
+            <tr>
+                <td class="name" ondblclick="fillSample('CMAU3300991')">CMAU3300991</td>
+                <td>Pharmaceuticals</td>
+            </tr>
+        </tbody>
+    </table>
+</main>

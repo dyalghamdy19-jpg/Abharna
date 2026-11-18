@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<main class="wrap" style="padding-top: 30px;">
+    <span class="section-label">ABHARNA &middot; REGISTER</span>
+    <h1>Create an account</h1>
+    <p class="lead">Fill in the form. Fields marked with * are required.</p>
+
+    <div id="signupBox" class="formbox big">
+        <form name="signupForm" method="post" onsubmit="return validateSignup()"
+              onreset="resetSignup()">
+
+            <label for="fullname" class="fl">FULL NAME *</label>
+            <input type="text" id="fullname" name="fullname" class="field" size="20" maxlength="25"
+                   placeholder="Your full name" required autofocus onfocus="highlight(this)" onblur="normal(this)">
+
+            <label for="su_email" class="fl">EMAIL *</label>
+            <input type="email" id="su_email" name="email" class="field" placeholder="name@@gmail.com" required
+                   onfocus="highlight(this)" onblur="normal(this)">
+
+            <label for="phone" class="fl">PHONE (05XXXXXXXX) *</label>
+            <input type="tel" id="phone" name="phone" class="field" placeholder="0512345678" pattern="[0-9]{10}"
+                   required onfocus="highlight(this)" onblur="normal(this)">
+
+            <label for="su_password" class="fl">PASSWORD (8 OR MORE CHARACTERS) *</label>
+            <input type="password" id="su_password" name="password" class="field" minlength="8" required
+                   onfocus="highlight(this)" onblur="checkStrength(); normal(this)">
+            <p>Strength: <span id="strength" class="stars"></span></p>
+                    
+            <label for="accountType" class="fl">ACCOUNT TYPE *</label>
+            <select id="accountType" name="accountType" class="field" onfocus="highlight(this)" onblur="normal(this)" required>
+                <option value="">-- choose --</option>
+                <option value="Customer">Customer</option>
+                <option value="Customs Broker">Customs Broker</option>
+                <option value="Shipping Rep">Shipping Rep</option>
+            </select>
+
+            <span class="fl">HOW SHOULD WE CONTACT YOU?</span>
+            <p>
+                <input type="radio" id="viaEmail" name="contact" value="email" checked>
+                <label for="viaEmail">Email</label>
+                &nbsp;
+                <input type="radio" id="viaSms" name="contact" value="sms">
+                <label for="viaSms">SMS</label>
+            </p>
+
+            <label for="notes" class="fl">NOTES</label>
+            <textarea id="notes" name="notes" class="field" rows="3" cols="30"
+                      placeholder="Anything we should know?" onfocus="highlight(this)"
+                      onblur="normal(this)">
+                    </textarea>
+
+            <p id="signupMsg" class="msg"></p>
+
+            <input type="submit" class="btn dark" value="Register">
+            <input type="reset" class="btn" value="Clear">
+            <p class="small">Already have an account? <a asp-controller="Account" asp-action="Login" style="color: #a98550;">Sign in</a></p>
+        </form>
+    </div>
+
+    <!--js after correct registration -->
+    <div id="signupResult"></div>
+</main>

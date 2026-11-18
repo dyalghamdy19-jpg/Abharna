@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<main class="wrap" style="padding-top: 30px;">
+
+    <div class="formcol">
+        <span class="section-label">ABHARNA &middot; AUTH</span>
+        <h1>Sign in to ABHARNA</h1>
+        <p class="lead">Use your account to follow ships and containers at Jeddah Islamic Port.</p>
+
+        <!--login form -->
+        <div id="loginBox" class="formbox">
+            <form name="loginForm" method="post" onsubmit="return validateLogin()"
+                  onreset="resetLogin()">
+
+                <label for="email" class="fl">EMAIL</label>
+                <input type="email" id="email" name="email" class="field" placeholder="name@@abharna.sa" required autofocus onfocus="highlight(this)" onblur="normal(this)">
+                <label for="password" class="fl">PASSWORD</label>
+                <input type="password" id="password" name="password" class="field" minlength="8" placeholder="At least 8 characters" required onfocus="highlight(this)" onblur="normal(this)">
+
+                <p id="loginMsg" class="msg"></p>
+
+                <input type="submit" class="btn dark wide" value="Sign In">
+                <p><input type="reset" class="btn" value="Clear"></p>
+                <p class="small">Don't have an account? <a asp-controller="Account" asp-action="Signup" style="color: #a98550;">Register here</a></p>
+            </form>
+        </div>
+
+        <!-- js- after correct login -->
+        <div id="welcomeBox" class="formbox" style="display: none;">
+            <span class="label">SIGNED IN</span>
+            <h2 id="welcomeTitle">Welcome!</h2>
+            <p id="welcomeRole"></p>
+            <p class="label">YOUR TOOLS</p>
+            <ul id="toolList" class="checks"></ul>
+            <p>
+                <a class="btn dark" asp-controller="Track" asp-action="Index">Track Cargo</a>
+                <button type="button" class="btn" onclick="signOut()">Sign out</button>
+            </p>
+        </div>
+    </div>
+
+    <div class="sidecol">
+        <span class="label">DEMO ACCOUNTS</span>
+        <p class="small">Click a row to fill the form.</p>
+        <table class="tbl">
+            <caption>Accounts you can use to test the site</caption>
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="fillDemo('staff@@abharna.sa', 'Staff.port')">
+                    <td class="name">Port Staff</td>
+                    <td>staff@@abharna.sa</td>
+                    <td>Staff.port</td>
+                </tr>
+                <tr onclick="fillDemo('manager@@abharna.sa', 'Manager.port')">
+                    <td class="name">Port Manager</td>
+                    <td>manager@@abharna.sa</td>
+                    <td>Manager.port</td>
+                </tr>
+                <tr onclick="fillDemo('customer@@abharna.sa', 'Customer.port')">
+                    <td class="name">Customer</td>
+                    <td>customer@@abharna.sa</td>
+                    <td>Customer.port</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="clear"></div>
+</main>
