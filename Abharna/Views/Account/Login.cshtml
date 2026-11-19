@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Login";
+    string lastEmail = ViewBag.LastEmail as string ?? "";
 }
 
 <main class="wrap" style="padding-top: 30px;">
@@ -9,35 +10,34 @@
         <h1>Sign in to ABHARNA</h1>
         <p class="lead">Use your account to follow ships and containers at Jeddah Islamic Port.</p>
 
-        <!--login form -->
         <div id="loginBox" class="formbox">
-            <form name="loginForm" method="post" onsubmit="return validateLogin()"
-                  onreset="resetLogin()">
+            <!-- ASP.NET: the form is sent (POST) to the Login action in AccountController -->
+            <form name="loginForm" method="post" asp-controller="Account" asp-action="Login"
+                  onsubmit="return checkLogin()" onreset="resetLogin()">
 
                 <label for="email" class="fl">EMAIL</label>
-                <input type="email" id="email" name="email" class="field" placeholder="name@@abharna.sa" required autofocus onfocus="highlight(this)" onblur="normal(this)">
-                <label for="password" class="fl">PASSWORD</label>
-                <input type="password" id="password" name="password" class="field" minlength="8" placeholder="At least 8 characters" required onfocus="highlight(this)" onblur="normal(this)">
+                <input type="email" id="email" name="email" class="field" value="@lastEmail" placeholder="name@@abharna.sa"
+                       required autofocus onfocus="highlight(this)" onblur="normal(this)">
 
-                <p id="loginMsg" class="msg"></p>
+                <label for="password" class="fl">PASSWORD</label>
+                <input type="password" id="password" name="password" class="field" minlength="8"
+                       placeholder="At least 8 characters" required onfocus="highlight(this)" onblur="normal(this)">
+
+                <p>
+                    <input type="checkbox" id="remember" name="remember" value="true" checked="@(lastEmail != "")">
+                    <label for="remember">Remember my email (cookie)</label>
+                </p>
+
+                <p id="loginMsg" class="msg">@ViewBag.Error</p>
+                @if (TempData["Message"] != null)
+                {
+                    <p class="msg" style="color: #2f7d52;">@TempData["Message"]</p>
+                }
 
                 <input type="submit" class="btn dark wide" value="Sign In">
                 <p><input type="reset" class="btn" value="Clear"></p>
                 <p class="small">Don't have an account? <a asp-controller="Account" asp-action="Signup" style="color: #a98550;">Register here</a></p>
             </form>
-        </div>
-
-        <!-- js- after correct login -->
-        <div id="welcomeBox" class="formbox" style="display: none;">
-            <span class="label">SIGNED IN</span>
-            <h2 id="welcomeTitle">Welcome!</h2>
-            <p id="welcomeRole"></p>
-            <p class="label">YOUR TOOLS</p>
-            <ul id="toolList" class="checks"></ul>
-            <p>
-                <a class="btn dark" asp-controller="Track" asp-action="Index">Track Cargo</a>
-                <button type="button" class="btn" onclick="signOut()">Sign out</button>
-            </p>
         </div>
     </div>
 
@@ -47,11 +47,7 @@
         <table class="tbl">
             <caption>Accounts you can use to test the site</caption>
             <thead>
-                <tr>
-                    <th>Role</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                </tr>
+                <tr><th>Role</th><th>Email</th><th>Password</th></tr>
             </thead>
             <tbody>
                 <tr onclick="fillDemo('staff@@abharna.sa', 'Staff.port')">
@@ -74,3 +70,21 @@
     </div>
     <div class="clear"></div>
 </main>
+
+@section Scripts {
+    <script>
+        // JavaScript check before the form is sent to the server
+        function checkLogin() {
+            var email = document.forms["loginForm"]["email"].value;
+            var pass = document.forms["loginForm"]["password"].value;
+            if (email == "" || pass == "") {
+                showMessage("loginMsg", "Please fill in all the fields.", true);
+                return false;
+            } else if (pass.length < 8) {
+                showMessage("loginMsg", "The password must have 8 characters or more.", true);
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

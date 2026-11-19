@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<main class="wrap" style="padding-top: 30px;">
+    <div class="formbox big">
+        <span class="label">SIGNED IN</span>
+        <h2>Welcome, @ViewBag.UserName!</h2>
+        <p>You are signed in as: <b>@ViewBag.UserRole</b></p>
+        <p class="label">YOUR TOOLS</p>
+        <ul class="checks">
+            @foreach (string tool in ViewBag.Tools)
+            {
+                <li>@tool</li>
+            }
+        </ul>
+        <p>
+            <a class="btn dark" asp-controller="Track" asp-action="Index">Track Cargo</a>
+            <a class="btn" asp-controller="Account" asp-action="Logout">Sign out</a>
+        </p>
+    </div>
+</main>

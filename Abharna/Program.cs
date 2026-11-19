@@ -1,3 +1,5 @@
+using Abharna.Helpers;
+using Abharna.Models;
 using Abharna.Data;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +8,27 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    if (!db.Users.Any())
+    {
+        db.Users.AddRange(
+            new User { FullName = "Faisal Al-Harbi", Email = "staff@abharna.sa", Phone = "0500000001", Password = PasswordHelper.Hash("Staff.port"), AccountType = "Port Staff" },
+            new User { FullName = "Sara Al-Otaibi", Email = "manager@abharna.sa", Phone = "0500000002", Password = PasswordHelper.Hash("Manager.port"), AccountType = "Port Manager" },
+            new User { FullName = "Layla Al-Ghamdi", Email = "customer@abharna.sa", Phone = "0500000003", Password = PasswordHelper.Hash("Customer.port"), AccountType = "Customer" }
+        );
+        db.SaveChanges();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -19,6 +40,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

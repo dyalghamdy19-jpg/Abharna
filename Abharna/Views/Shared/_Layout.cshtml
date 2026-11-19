@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var userName = Context.Session.GetString("UserName");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,8 +42,16 @@
                             <li><a asp-controller="Home" asp-action="About" asp-fragment="sitemap">Site Map</a></li>
                         </ul>
                     </li>
-                    <li><a asp-controller="Account" asp-action="Login" id="menu_login">Login</a></li>
-                    <li><a asp-controller="Account" asp-action="Signup" id="menu_signup">Sign Up</a></li>
+                    @if (userName == null)
+                    {
+                        <li><a asp-controller="Account" asp-action="Login" id="menu_login">Login</a></li>
+                        <li><a asp-controller="Account" asp-action="Signup" id="menu_signup">Sign Up</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Account" asp-action="Welcome" id="menu_login">Hi, @userName</a></li>
+                        <li><a asp-controller="Account" asp-action="Logout" id="menu_signup">Logout</a></li>
+                    }
                     <li><a asp-controller="Track" asp-action="Index" id="menu_track">Track Cargo</a></li>
                 </ul>
             </nav>
