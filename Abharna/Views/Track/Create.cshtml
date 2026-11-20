@@ -1,0 +1,46 @@
+﻿@model Abharna.Models.Container
+@{
+    ViewData["Title"] = "Add Container";
+}
+
+<main class="wrap" style="padding-top: 30px;">
+    <span class="section-label">ABHARNA &middot; CONTAINERS</span>
+    <h1>Add a container</h1>
+
+    <div class="formbox big">
+        <form method="post" asp-controller="Track" asp-action="Create">
+
+            <label asp-for="ContainerNumber" class="fl">CONTAINER NUMBER *</label>
+            <input asp-for="ContainerNumber" class="field" maxlength="11" placeholder="e.g. ABHU1234567" autofocus>
+            <span asp-validation-for="ContainerNumber" class="msg"></span>
+
+            <label asp-for="Cargo" class="fl">CARGO *</label>
+            <input asp-for="Cargo" class="field" placeholder="e.g. Textile Bales">
+            <span asp-validation-for="Cargo" class="msg"></span>
+
+            <label asp-for="Stage" class="fl">STATUS *</label>
+            <select asp-for="Stage" class="field">
+                <option value="1">1 - Registered</option>
+                <option value="2">2 - In transit</option>
+                <option value="3">3 - At port</option>
+                <option value="4">4 - Customs hold</option>
+                <option value="5">5 - Released</option>
+            </select>
+
+            <label asp-for="Location" class="fl">LOCATION *</label>
+            <input asp-for="Location" class="field" placeholder="e.g. Yard B-12">
+            <span asp-validation-for="Location" class="msg"></span>
+
+            <label asp-for="Vessel" class="fl">VESSEL *</label>
+            <input asp-for="Vessel" class="field" placeholder="e.g. MV AL JAZIRA">
+            <span asp-validation-for="Vessel" class="msg"></span>
+
+            <label asp-for="Eta" class="fl">ESTIMATED ARRIVAL *</label>
+            <input asp-for="Eta" class="field" placeholder="e.g. 20 Dec 2026">
+            <span asp-validation-for="Eta" class="msg"></span>
+
+            <input type="submit" class="btn dark" value="Save">
+            <a class="btn" asp-controller="Track" asp-action="Manage">Cancel</a>
+        </form>
+    </div>
+</main>

@@ -1,0 +1,83 @@
+﻿@model List<Abharna.Models.Container>
+@using Abharna.Helpers
+@{
+    ViewData["Title"] = "Manage Containers";
+    bool canEdit = ViewBag.CanEdit == true;
+}
+
+<main class="wrap" style="padding-top: 30px;">
+    <span class="section-label">ABHARNA &middot; CONTAINERS</span>
+    <h1>Manage containers</h1>
+    @if (!canEdit)
+    {
+        <p class="small">You can view and search the containers. Only Port Staff can add, edit or delete.</p>
+    }
+
+    @if (TempData["Message"] != null)
+    {
+        <p class="msg" style="color: #2f7d52;">@TempData["Message"]</p>
+    }
+
+    <div class="formbox big">
+        <!-- SEARCH -->
+        <form method="get" asp-controller="Track" asp-action="Manage">
+            <label for="q" class="fl">SEARCH (number, cargo, location or vessel)</label>
+            <input type="text" id="q" name="q" class="field" value="@ViewBag.Query" onfocus="highlight(this)" onblur="normal(this)">
+            <input type="submit" class="btn dark" value="Search">
+            <a class="btn" asp-controller="Track" asp-action="Manage">Show all</a>
+        </form>
+    </div>
+
+    @if (canEdit)
+    {
+        <p><a class="btn dark" asp-controller="Track" asp-action="Create">+ Add container</a></p>
+    }
+
+    <table class="tbl">
+        <caption>Containers (@Model.Count)</caption>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Cargo</th>
+                <th>Status</th>
+                <th>Location</th>
+                <th>Vessel</th>
+                <th>ETA</th>
+                @if (canEdit)
+                {
+                    <th>Actions</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td class="name">@c.ContainerNumber</td>
+                    <td>@c.Cargo</td>
+                    <td>@StageHelper.Name(c.Stage)</td>
+                    <td>@c.Location</td>
+                    <td>@c.Vessel</td>
+                    <td>@c.Eta</td>
+                    @if (canEdit)
+                    {
+                        <td>
+                            <a class="btn" asp-controller="Track" asp-action="Edit" asp-route-id="@c.Id">Edit</a>
+                            <form method="post" asp-controller="Track" asp-action="Delete" asp-route-id="@c.Id" style="display: inline;"
+                                  onsubmit="return confirm('Delete this container?');">
+                                <button type="submit" class="btn">Delete</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.Count == 0)
+    {
+        <p class="msg">No containers found.</p>
+    }
+
+    <p><a class="btn" asp-controller="Track" asp-action="Index">Back to tracking</a></p>
+</main>

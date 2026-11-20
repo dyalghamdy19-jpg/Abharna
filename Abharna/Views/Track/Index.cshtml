@@ -1,5 +1,10 @@
-﻿@{
+﻿@model Abharna.Models.Container
+@using Abharna.Helpers
+@using Microsoft.AspNetCore.Http
+@{
     ViewData["Title"] = "Track Cargo";
+    var samples = ViewBag.Samples as List<Abharna.Models.Container> ?? new List<Abharna.Models.Container>();
+    bool loggedIn = Context.Session.GetString("UserName") != null;
 }
 
 <main class="wrap" style="padding-top: 30px;">
@@ -8,39 +13,80 @@
     <p class="lead">Enter your container number to see status, location and estimated arrival.</p>
 
     <div class="formbox big">
-        <form name="trackForm" method="post" onsubmit="return trackContainer()"
-              onreset="resetTrack()">
+        <!-- ASP.NET: the number is sent to the server, which searches the database -->
+        <form name="trackForm" method="get" asp-controller="Track" asp-action="Index">
             <label for="container" class="fl">CONTAINER NUMBER</label>
-            <input type="search" id="container" name="container" class="field" placeholder="e.g. ABHU1234567" autofocus onfocus="highlight(this)" onblur="normal(this)">
+            <input type="text" id="container" name="container" class="field" placeholder="e.g. ABHU1234567"
+                   autofocus onfocus="highlight(this)" onblur="normal(this)">
             <input type="submit" class="btn dark" value="Track">
-            <input type="reset" class="btn" value="Clear">
+            <a class="btn" asp-controller="Track" asp-action="Index">Clear</a>
         </form>
     </div>
 
-    <!--js -->
-    <div id="trackResult"></div>
+    @if (ViewBag.Error != null)
+    {
+        <p class="msg">@ViewBag.Error</p>
+    }
+
+    @if (Model != null)
+    {
+        <div class="result">
+            <span class="label">CONTAINER</span>
+            <h2>@Model.ContainerNumber</h2>
+            <p>
+                Cargo: <b>@Model.Cargo</b><br>
+                Location: <b>@Model.Location</b><br>
+                Vessel: <b>@Model.Vessel</b><br>
+                Estimated arrival: <b>@Model.Eta</b><br>
+                Status: <b>@StageHelper.Name(Model.Stage)</b>
+            </p>
+            <ul class="progress">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i < Model.Stage)
+                    {
+                        <li class="done">&#10003; @StageHelper.Name(i)</li>
+                    }
+                    else if (i == Model.Stage)
+                    {
+                        <li class="now">&#9679; @StageHelper.Name(i) (now)</li>
+                    }
+                    else
+                    {
+                        <li class="todo">&#9675; @StageHelper.Name(i)</li>
+                    }
+                }
+            </ul>
+        </div>
+    }
 
     <div class="divider"></div>
 
     <h3>Sample container numbers</h3>
-    <p class="small">Double-click a number to write it in the search box.</p>
+    <p class="small">Click a number to track it.</p>
     <table class="tbl">
-        <caption>Containers you can search for</caption>
+        <caption>Containers in the database</caption>
         <thead>
-            <tr>
-                <th>Container number</th>
-                <th>Cargo</th>
-            </tr>
+            <tr><th>Container number</th><th>Cargo</th><th>Status</th></tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="name" ondblclick="fillSample('ABHU7771234')">ABHU7771234</td>
-                <td>Industrial Machinery</td>
-            </tr>
-            <tr>
-                <td class="name" ondblclick="fillSample('CMAU3300991')">CMAU3300991</td>
-                <td>Pharmaceuticals</td>
-            </tr>
+            @foreach (var c in samples)
+            {
+                <tr>
+                    <td class="name"><a asp-controller="Track" asp-action="Index" asp-route-container="@c.ContainerNumber">@c.ContainerNumber</a></td>
+                    <td>@c.Cargo</td>
+                    <td>@StageHelper.Name(c.Stage)</td>
+                </tr>
+            }
         </tbody>
     </table>
+
+    @if (loggedIn)
+    {
+        <p><a class="btn dark" asp-controller="Track" asp-action="Manage">Manage containers</a></p>
+    }
+    else
+    {
+        <p class="small">Sign in to see the full list of containers.</p>
+    }
 </main>
